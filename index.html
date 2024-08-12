@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song Player</title>
+</head>
+<body style="background-color: #212121; color: beige;" align="center">
+    <h1>Song Player</h1><hr/>
+
+    <table align="center">
+        <tr>
+            <td><h4>Enter word:</h4></td>
+            <td><input type="text" id="txt" required><br></td>
+        </tr>
+        <tr>
+            <td><h4>Enter miliSeconds:</h4></td>
+            <td><input type="number" id="sec" required></td>
+        </tr>
+        <tr>
+            <td><button onclick="add()">Add</button></td>
+            <td><button onclick="start()">Start</button></td>
+        </tr>
+    </table>
+    <div id="output"></div>
+</body>
+<script>
+    let messages = [];
+
+function add() {
+  const text = document.getElementById('txt').value;
+  const milliseconds = parseInt(document.getElementById('sec').value);
+
+  if (text && milliseconds > 0) {
+    messages.push({ text, milliseconds });
+    console.log('Added:', { text, milliseconds });
+    document.getElementById('txt').value = ''; 
+    document.getElementById('sec').value = ''; 
+  } else {
+    alert('Please enter valid text and milliseconds.');
+  }
+}
+
+function start() {
+  const outputDiv = document.getElementById('output');
+  outputDiv.innerHTML = ''; 
+
+  messages.forEach((message, index) => {
+    setTimeout(() => {
+      outputDiv.innerHTML += `<p>${message.text}</p>`;
+    }, message.milliseconds * index);
+  });
+}
+</script>
+</html>
